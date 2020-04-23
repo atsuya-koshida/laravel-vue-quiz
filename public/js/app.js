@@ -2040,20 +2040,24 @@ __webpack_require__.r(__webpack_exports__);
     TheSidebar: _layout_TheSidebar__WEBPACK_IMPORTED_MODULE_2__["default"],
     BarChart: _module_BarChart__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  // ここから追加
   data: function data() {
     return {
-      categories: [1] // categoriesのデフォルト値を設定します。ここでは[1]配列の1とします。
-
+      categories: [1],
+      information: []
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$http.get("/api/information").then(function (response) {
+      _this.information = response.data;
+    });
   },
   methods: {
     goQuiz: function goQuiz() {
-      // @click.stop.preventで設定したgoQuiz()をここで定義します
-      this.$router.push("/quiz?categories=" + this.categories); // this.$router.pushを使うことで、画面リロードすることなくURLを変更できます。
+      this.$router.push("/quiz?categories=" + this.categories);
     }
-  } //　ここまで追加
-
+  }
 });
 
 /***/ }),
@@ -37441,7 +37445,22 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(5)
+              _c(
+                "section",
+                { staticClass: "home__notice" },
+                [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _vm._l(_vm.information, function(info, index) {
+                    return _c("dl", { key: index }, [
+                      _c("dt", [_vm._v(_vm._s(info.created_at))]),
+                      _vm._v(" "),
+                      _c("dd", [_vm._v(_vm._s(info.information))])
+                    ])
+                  })
+                ],
+                2
+              )
             ]),
             _vm._v(" "),
             _c("the-sidebar")
@@ -37576,20 +37595,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "home__notice" }, [
-      _c("h2", { staticClass: "home__notice-h2" }, [
-        _c("img", {
-          staticClass: "home__notice-h2-logo",
-          attrs: { src: "/images/news-icon.png" }
-        }),
-        _vm._v("お知らせ情報\n          ")
-      ]),
-      _vm._v(" "),
-      _c("dl", [
-        _c("dt", [_vm._v("2019/08/23")]),
-        _vm._v(" "),
-        _c("dd", [_vm._v("サイトを開設しました。")])
-      ])
+    return _c("h2", { staticClass: "home__notice-h2" }, [
+      _c("img", {
+        staticClass: "home__notice-h2-logo",
+        attrs: { src: "/images/news-icon.png" }
+      }),
+      _vm._v("お知らせ情報\n          ")
     ])
   }
 ]
