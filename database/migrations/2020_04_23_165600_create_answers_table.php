@@ -19,7 +19,7 @@ class CreateAnswersTable extends Migration
             $table->string('answer_2');
             $table->string('answer_3');
             $table->string('answer_4');
-            $table->integer('correct_answer_no');
+            $table->integer('correct_answ]er_no');
             $table->text('commentary');
             $table->timestamps();
         });
